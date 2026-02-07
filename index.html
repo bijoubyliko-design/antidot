@@ -1,20 +1,56 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antidot — проверка офферов</title>
+    <title>Antidot — Детектор "Зашквара"</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 600px; margin: auto; color: #333; }
-        h1 { color: #d32f2f; }
-        .contact-btn { display: inline-block; background: #0088cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 500px; text-align: center; }
+        h1 { color: #d32f2f; margin-bottom: 10px; }
+        p { color: #666; font-size: 14px; margin-bottom: 20px; }
+        textarea { width: 100%; height: 120px; border: 2px solid #ddd; border-radius: 12px; padding: 12px; font-size: 16px; resize: none; outline: none; transition: 0.3s; box-sizing: border-box; }
+        textarea:focus { border-color: #d32f2f; }
+        button { background: #d32f2f; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #b71c1c; transform: translateY(-2px); }
+        #result { margin-top: 25px; padding: 15px; border-radius: 12px; display: none; font-weight: bold; }
+        .bad { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        .good { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
     </style>
 </head>
 <body>
-    <h1>Antidot</h1>
-    <p><strong>Проверка текстов переписки и офферов на сеть "зашквар".</strong></p>
-    <p>Не сливай бюджет на сомнительные предложения. Мы проверяем офферы на чистоту и честность.</p>
-    
-    <a href="https://t.me/ТВОЙ_НИК" class="contact-btn">Связаться в Telegram</a>
+    <div class="card">
+        <h1>Antidot</h1>
+        <p>Вставь текст оффера или переписки, чтобы проверить его на "зашквар"</p>
+        <textarea id="textInput" placeholder="Введите текст здесь..."></textarea>
+        <button onclick="checkText()">ПРОВЕРИТЬ</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkText() {
+            const text = document.getElementById('textInput').value.toLowerCase();
+            const resultDiv = document.getElementById('result');
+            
+            if (text.trim() === "") {
+                alert("Пожалуйста, введите текст для проверки!");
+                return;
+            }
+
+            resultDiv.style.display = "block";
+            
+            // Простейшая логика детектора
+            const redFlags = ['миллион за неделю', 'вложений не требуется', 'крипта', 'личный кабинет', 'пассивный доход', 'схема', 'быстрые деньги'];
+            let isBad = redFlags.some(flag => text.includes(flag));
+
+            if (isBad) {
+                resultDiv.className = "bad";
+                resultDiv.innerHTML = "⚠️ ВНИМАНИЕ: Обнаружены признаки сомнительного предложения! Будьте осторожны.";
+            } else {
+                resultDiv.className = "good";
+                resultDiv.innerHTML = "✅ Текст выглядит чистым. Но всегда сохраняйте бдительность!";
+            }
+        }
+    </script>
 </body>
 </html>
