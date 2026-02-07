@@ -24,7 +24,7 @@
         <p>Вставь текст оффера или переписки, чтобы проверить его на "зашквар"</p>
         <textarea id="textInput" placeholder="Введите текст здесь..."></textarea>
         <button onclick="checkText()">ПРОВЕРИТЬ</button>
-        <div id="result"></div>
+        <div id="result"></div><a href="https://t.me/neuro_mlm_new" id="tgButton" style="display: none; background: #0088cc; color: white; text-decoration: none; padding: 12px; border-radius: 10px; margin-top: 15px; font-weight: bold; text-align: center;">Мой канал в Telegram</a>
     </div>
 
     <script>
@@ -37,7 +37,7 @@
                 return;
             }
 
-            resultDiv.style.display = "block";
+            resultDiv.style.display = "block";document.getElementById('tgButton').style.display = "block";
             
             // Простейшая логика детектора
             const redFlags = ['миллион за неделю', 'вложений не требуется', 'крипта', 'личный кабинет', 'пассивный доход', 'схема', 'быстрые деньги'];
